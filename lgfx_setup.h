@@ -25,7 +25,7 @@ class LGFX : public lgfx::LGFX_Device
       cfg.pin_sclk = 18;            // SPI SCLK
       cfg.pin_mosi = 23;            // SPI MOSI
       cfg.pin_miso = -1;            // SPI MISO (-1 = disable)
-      cfg.pin_dc   = 2;            // SPI D/C  (-1 = disable)
+      cfg.pin_dc   = 32;            // SPI D/C  (-1 = disable)
   
       _bus_instance.config(cfg);    
       _panel_instance.setBus(&_bus_instance);      
@@ -35,7 +35,7 @@ class LGFX : public lgfx::LGFX_Device
       auto cfg = _panel_instance.config();    
 
       cfg.pin_cs           =    5;  // CS   (-1 = disable)
-      cfg.pin_rst          =    15;  // RST  (-1 = disable)
+      cfg.pin_rst          =    4;  // RST  (-1 = disable)
       cfg.pin_busy         =    -1;  // BUSY (-1 = disable)
 
       cfg.panel_width      =   240;  

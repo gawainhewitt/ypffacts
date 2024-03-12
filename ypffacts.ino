@@ -6,7 +6,7 @@
 
 #define AA_FONT_LARGE NotoSansBold36
 
-#define Screen1_CS 21 
+#define Screen_CS 22
 
 #define SCREENOFF 1
 #define SCREENON 0
@@ -29,7 +29,7 @@ void setup(void)
 
   Serial.begin(250000);
 
-  pinMode(Screen1_CS, OUTPUT);
+  pinMode(Screen_CS, OUTPUT);
 
   tft.begin();
 
@@ -37,7 +37,7 @@ void setup(void)
 
   spr.setColorDepth(16); // 16 bit colour needed to show antialiased fonts
 
-  tft.fillScreen(REDDISHPURPLE);
+  tft.fillScreen(VERMILLION);
 }
 
 int currentElement = 0;
@@ -53,7 +53,7 @@ void loop(void)
   Serial.print("element is ");
   Serial.println(currentElement);
     
-  delay(1000);
+  delay(500);
 }
 
 void writeScreen(int element) {
@@ -68,23 +68,23 @@ void writeScreen(int element) {
 
   spr.createSprite(width, spriteHeight);   // Create a sprite 100 pixels wide and 50 high
  
-  spr.setTextColor(YELLOW, REDDISHPURPLE); // Set the font colour and the background colour
+  spr.setTextColor(BLACK, VERMILLION); // Set the font colour and the background colour
 
   spr.setTextDatum(ML_DATUM); // Middle left datum
 
   spr.setTextWrap(false);
 
-  digitalWrite(Screen1_CS, SCREENON);
+  digitalWrite(Screen_CS, SCREENON);
 
   spr.createSprite(width, spriteHeight);   // Create a sprite 100 pixels wide and 50 high
 
   for(int i = width; i > 0 - sentanceLength; i--) {
-    spr.fillSprite(REDDISHPURPLE);
+    spr.fillSprite(VERMILLION);
     spr.drawString(factToDisplay, i, spriteHeight/2); // Make sure text fits in the Sprite!
     spr.pushSprite(0, height/2 - (spriteHeight/2) + 1);  // ok on this library it doesn't seem to be able to cope with the same number twice with two screens so this is a hack
   }
 
-  digitalWrite(Screen1_CS, SCREENON);
+  digitalWrite(Screen_CS, SCREENON);
   
   spr.unloadFont(); // Remove the font to recover memory used
 
