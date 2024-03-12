@@ -60,7 +60,7 @@ void writeScreen(int element) {
   int width = tft.width(); // Half the screen width
   int height = tft.height();
   int spriteHeight = 100;
-  String factToDisplay = birdFacts[currentElement];
+  String factToDisplay = ypfFacts[currentElement];
 
   spr.loadFont(AA_FONT_LARGE); // Load another different font into the sprite instance
 
@@ -78,14 +78,11 @@ void writeScreen(int element) {
 
   spr.createSprite(width, spriteHeight);   // Create a sprite 100 pixels wide and 50 high
 
-  for(int i = width; i > 0 - sentanceLength; i--) {
+  for(int i = width; i > 0 - sentanceLength; i = i - 2) {
     spr.fillSprite(VERMILLION);
     spr.drawString(factToDisplay, i, spriteHeight/2); // Make sure text fits in the Sprite!
     spr.pushSprite(0, height/2 - (spriteHeight/2) + 1);  // ok on this library it doesn't seem to be able to cope with the same number twice with two screens so this is a hack
-  }
-
-  digitalWrite(Screen_CS, SCREENON);
-  
+  } 
   spr.unloadFont(); // Remove the font to recover memory used
 
   spr.deleteSprite(); // Recover memory
