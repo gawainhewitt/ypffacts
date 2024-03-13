@@ -7,13 +7,10 @@
 #define AA_FONT_LARGE NotoSansBold36
 
 // **********************************************************************************
-// i have foolishly been inconsistant with regards to which output i'm using across the installation 
-// so check this carefully in code and on the board
-// i have added a hard off to the screen connection not being used so that it doesn't work if wrong
+// i have been inconsistant with regards to which output i'm using across the installation
+// so i have enabled both screens in all code so it doesn't matter which connection is used
 
-// YPFFacts uses the screen 2 connection. 
-
-#define Screen1_CS 21 
+#define Screen1_CS 21
 #define Screen2_CS 22
 
 #define SCREENOFF 1
@@ -33,8 +30,8 @@ LGFX_Sprite spr(&tft);
 
 int currentElement = 0;
 int lastElement = NUMBER_OF_ELEMENTS;
-int textDelay = 500; // delay time between facts
-float textSpeed = 2.0; // Iteration speed of loop of text. 1 is slowest.
+int textDelay = 500;   // delay time between facts
+int textSpeed = 2; // Iteration speed of loop of text. 1 is slowest.
 
 void setup(void)
 {
@@ -63,11 +60,12 @@ void loop(void)
 
   Serial.print("element is ");
   Serial.println(currentElement);
-    
+
   delay(textDelay);
 }
 
-void writeScreen(int element) {
+void writeScreen(int element)
+{
   int width = tft.width(); // Half the screen width
   int height = tft.height();
   int spriteHeight = 100;
@@ -77,24 +75,25 @@ void writeScreen(int element) {
 
   int sentanceLength = spr.textWidth(factToDisplay); // in pixels
 
-  spr.createSprite(width, spriteHeight);   // Create a sprite 100 pixels wide and 50 high
- 
+  spr.createSprite(width, spriteHeight); // Create a sprite 100 pixels wide and 50 high
+
   spr.setTextColor(BLACK, VERMILLION); // Set the font colour and the background colour
 
   spr.setTextDatum(ML_DATUM); // Middle left datum
 
   spr.setTextWrap(false);
 
-  digitalWrite(Screen1_CS, SCREENOFF);
+  digitalWrite(Screen1_CS, SCREENON);
   digitalWrite(Screen2_CS, SCREENON);
 
-  spr.createSprite(width, spriteHeight);   // Create a sprite 100 pixels wide and 50 high
+  spr.createSprite(width, spriteHeight); // Create a sprite 100 pixels wide and 50 high
 
-  for(int i = width; i > 0 - sentanceLength; i = i - textSpeed) {
+  for (int i = width; i > 0 - sentanceLength; i = i - textSpeed)
+  {
     spr.fillSprite(VERMILLION);
-    spr.drawString(factToDisplay, i, spriteHeight/2); // Make sure text fits in the Sprite!
-    spr.pushSprite(0, height/2 - (spriteHeight/2) + 1);  // ok on this library it doesn't seem to be able to cope with the same number twice with two screens so this is a hack
-  } 
+    spr.drawString(factToDisplay, i, spriteHeight / 2);     // Make sure text fits in the Sprite!
+    spr.pushSprite(0, height / 2 - (spriteHeight / 2) + 1); // ok on this library it doesn't seem to be able to cope with the same number twice with two screens so this is a hack
+  }
   spr.unloadFont(); // Remove the font to recover memory used
 
   spr.deleteSprite(); // Recover memory
