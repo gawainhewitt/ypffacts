@@ -4,7 +4,7 @@ Code for the ypf facts screen for my Murmuration installation
 
 One GC9A01 screen connected to a ESP32 development board Dual Core ESP-32S ESP32-WROOM-32D
 
-I have the board selected as a DOIT ESP32 DEVKIT V1 in Arduino and this is working well. 
+I have the board selected as a DOIT ESP32 DEVKIT V1 in Arduino and this is working well using Ubuntu. Not working on Mac OS 
 
 
 Will need to change pins for the new PCB
